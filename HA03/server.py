@@ -24,18 +24,16 @@ def file(cSocket, file):
                 break
             file1.write(file2)
 
-def main():
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind((SERVER, PORT))
-    server.listen()
 
-    print(f"** Listening on {SERVER}:{PORT} **")
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind((SERVER, PORT))
+server.listen()
 
-    while True:
-        client, addr = server.accept()
-        print(f"** Found connection from {addr[0]}:{addr[1]} **")
-        clientThread = threading.Thread(target=message, args=(client,))
-        clientThread.start()
+print(f"** Listening on {SERVER}:{PORT} **")
 
-if __name__ == '__main__':
-    main()
+while True:
+    client, addr = server.accept()
+    print(f"** Found connection from {addr[0]}:{addr[1]} **")
+    clientThread = threading.Thread(target=message, args=(client,))
+    clientThread.start()
+    
