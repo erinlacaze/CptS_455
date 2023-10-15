@@ -15,24 +15,22 @@ def file(cSocket, file):
             cSocket.send(file2)
             file2 = file1.read(H_SIZE)
 
-def main():
-    userInput = ""
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((SERVER, PORT))
-    print(f"** Found connection to server **")
+userInput = ""
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect((SERVER, PORT))
+print(f"** Found connection to server **")
 
-    messageThread = threading.Thread(target=message, args=(client, userInput))
-    messageThread.start()
+messageThread = threading.Thread(target=message, args=(client, userInput))
+messageThread.start()
 
-    while True:
-        userInput = input()
-        if userInput.startswith("/"):
-            find = userInput[1:]
-            file(client, find)
-        elif userInput.startswith("exit"):
-            break
-        else:
-            message(client, userInput)
+while True:
+    userInput = input()
+    if userInput.startswith("/"):
+        find = userInput[1:]
+        file(client, find)
+    elif userInput.startswith("exit"):
+        break
+    else:
+        message(client, userInput)
 
-if __name__ == '__main__':
-    main()
+client.close()
