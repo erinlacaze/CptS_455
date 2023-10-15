@@ -32,8 +32,9 @@ server.listen()
 print(f"** Listening on {SERVER}:{PORT} **")
 
 while True:
-    client, addr = server.accept()
-    print(f"** Found connection from {addr[0]}:{addr[1]} **")
+    client, arg = server.accept()
+    print(f"** Found connection from {arg[0]}:{arg[1]} **")
+    
     clientThread = threading.Thread(target=message, args=(client,))
     clientThread.start()
     
